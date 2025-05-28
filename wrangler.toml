@@ -5,8 +5,8 @@ compatibility_date = "2023-03-16"
 
 [[r2_buckets]]
 binding = "R2_BUCKET"
-bucket_name = "bookodav"         # 请替换为您实际创建的R2存储桶名称
-preview_bucket_name = "bookodav" # 请替换为您实际创建的R2存储桶名称
+bucket_name = ""         # 请替换为您实际创建的R2存储桶名称
+preview_bucket_name = "" # 请替换为您实际创建的R2存储桶名称
 
 
 # [[analytics_engine_datasets]]

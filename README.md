@@ -11,6 +11,7 @@
 - 可选：记录统计信息到Analytics Engine
 
 ## 使用方法
+fork 本项目
 
 1. 确保`wrangler.toml`中已配置R2存储桶：
 
@@ -21,13 +22,7 @@ bucket_name = "你的存储桶名称"
 ```
 
 2. 部署Worker：
-
-```bash
-npm run deploy
-```
-
-或直接使用wrangler：
-
+部署命令
 ```bash
 npx wrangler publish
 ```
