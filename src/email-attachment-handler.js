@@ -23,6 +23,11 @@ function sanitizeFilename(filename) {
   let sanitized = filename.replace(/\u0000/g, '');
   // 移除URL编码的空字符
   sanitized = sanitized.replace(/%00/g, '');
+  // 移除控制字符
+  sanitized = sanitized.replace(/[\x00-\x1F\x7F]/g, '');
+  // 替换问题字符
+  sanitized = sanitized.replace(/[<>:"\/\\|?*]/g, '_');
+  
   // 如果文件名为空，返回默认名称
   if (!sanitized || sanitized.trim() === '') {
     return 'unnamed_file';
