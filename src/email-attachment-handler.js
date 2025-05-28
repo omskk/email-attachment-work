@@ -1,7 +1,4 @@
-/// <reference types="@cloudflare/workers-types" />
-
 import * as PostalMime from 'postal-mime'
-import { Env } from './types'
 
 /**
  * 处理邮件附件的Worker
@@ -11,7 +8,7 @@ export default {
   /**
    * 处理邮件的入口函数
    */
-  async email(message: EmailMessage, env: Env, ctx: ExecutionContext): Promise<void> {
+  async email(message, env, ctx) {
     await handleEmail(message, env, ctx)
   },
 }
@@ -22,7 +19,7 @@ export default {
  * @param env 环境变量
  * @param ctx 执行上下文
  */
-async function handleEmail(message: EmailMessage, env: Env, ctx: ExecutionContext): Promise<void> {
+async function handleEmail(message, env, ctx) {
   try {
     // 创建解析器
     const parser = new PostalMime.default()

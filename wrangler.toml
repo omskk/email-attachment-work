@@ -1,5 +1,5 @@
 name = "email-attachment-handler"
-main = "src/email-attachment-handler.ts"
+main = "src/email-attachment-handler.js"
 compatibility_date = "2023-03-16"
 
 
