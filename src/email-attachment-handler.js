@@ -14,6 +14,23 @@ export default {
 }
 
 /**
+ * 清理文件名，移除不安全字符
+ * @param filename 原始文件名
+ * @return {string} 清理后的文件名
+ */
+function sanitizeFilename(filename) {
+  // 移除所有空字符 (%00)
+  let sanitized = filename.replace(/\u0000/g, '');
+  // 移除URL编码的空字符
+  sanitized = sanitized.replace(/%00/g, '');
+  // 如果文件名为空，返回默认名称
+  if (!sanitized || sanitized.trim() === '') {
+    return 'unnamed_file';
+  }
+  return sanitized;
+}
+
+/**
  * 处理邮件主函数
  * @param message 邮件消息
  * @param env 环境变量
@@ -41,8 +58,8 @@ async function handleEmail(message, env, ctx) {
         continue
       }
       
-      // 构建文件路径 - 直接使用原始文件名存储在根目录
-      const filePath = attachment.filename
+      // 构建文件路径 - 清理文件名后再存储
+      const filePath = sanitizeFilename(attachment.filename)
       
       // 存储到R2
       if (env.R2_BUCKET) {
