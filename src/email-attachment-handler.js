@@ -27,6 +27,8 @@ function sanitizeFilename(filename) {
   sanitized = sanitized.replace(/[\x00-\x1F\x7F]/g, '');
   // 替换问题字符
   sanitized = sanitized.replace(/[<>:"\/\\|?*]/g, '_');
+  // 去除所有空格
+  sanitized = sanitized.replace(/\s+/g, '');
   
   // 如果文件名为空，返回默认名称
   if (!sanitized || sanitized.trim() === '') {
