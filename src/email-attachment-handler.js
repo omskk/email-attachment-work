@@ -20,13 +20,13 @@ export default {
  */
 function sanitizeFilename(filename) {
   // 移除所有空字符 (%00)
-  let sanitized = filename.replace(/\u0000/g, '');
-  // 移除URL编码的空字符
-  sanitized = sanitized.replace(/%00/g, '');
-  // 移除控制字符
-  sanitized = sanitized.replace(/[\x00-\x1F\x7F]/g, '');
-  // 替换问题字符
-  sanitized = sanitized.replace(/[<>:"\/\\|?*]/g, '_');
+  // let sanitized = filename.replace(/\u0000/g, '');
+  // // 移除URL编码的空字符
+  // sanitized = sanitized.replace(/%00/g, '');
+  // // 移除控制字符
+  // sanitized = sanitized.replace(/[\x00-\x1F\x7F]/g, '');
+  // // 替换问题字符
+  // sanitized = sanitized.replace(/[<>:"\/\\|?*]/g, '_');
   // 去除所有空格
   sanitized = sanitized.replace(/\s+/g, '');
   
