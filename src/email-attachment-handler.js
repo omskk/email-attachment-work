@@ -20,7 +20,7 @@ export default {
  */
 function sanitizeFilename(filename) {
   // 移除所有空字符 (%00)
-  // let sanitized = filename.replace(/\u0000/g, '');
+  let sanitized = filename.replace(/\u0000/g, '');
   // // 移除URL编码的空字符
   // sanitized = sanitized.replace(/%00/g, '');
   // // 移除控制字符
@@ -28,7 +28,7 @@ function sanitizeFilename(filename) {
   // // 替换问题字符
   // sanitized = sanitized.replace(/[<>:"\/\\|?*]/g, '_');
   // 去除所有空格
-  sanitized = sanitized.replace(/\s+/g, '');
+  // sanitized = sanitized.replace(/\s+/g, '');
   
   // 如果文件名为空，返回默认名称
   if (!sanitized || sanitized.trim() === '') {
