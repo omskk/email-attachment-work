@@ -31,7 +31,7 @@ function sanitizeFilename(filename) {
   // // 替换问题字符
   // sanitized = sanitized.replace(/[<>:"\/\\|?*]/g, '_');
   // 去除所有空格
-  // sanitized = sanitized.replace(/\s+/g, '');
+  sanitized = sanitized.replace(/\s+/g, '');
   
   // 如果文件名为空，返回默认名称
   if (!sanitized || sanitized.trim() === '') {
