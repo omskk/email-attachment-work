@@ -26,12 +26,40 @@ function sanitizeFilename(filename) {
   let sanitized = filename.replace(/\u0000/g, '');
   // // 移除URL编码的空字符
   // sanitized = sanitized.replace(/%00/g, '');
-  // // 移除控制字符
-  // sanitized = sanitized.replace(/[\x00-\x1F\x7F]/g, '');
-  // // 替换问题字符
-  // sanitized = sanitized.replace(/[<>:"\/\\|?*]/g, '_');
+  // 移除控制字符
+  sanitized = sanitized.replace(/[\x00-\x1F\x7F]/g, '');
+  // 替换问题字符
+  sanitized = sanitized.replace(/[<>:"\/\\|?*]/g, '_');
+  
+  // 格式化电子书文件名
+  // 移除《》、（）、()等括号，并用-替换
+  sanitized = sanitized.replace(/《/g, '');
+  sanitized = sanitized.replace(/》/g, '');
+  sanitized = sanitized.replace(/（/g, '');
+  sanitized = sanitized.replace(/）/g, '-');
+  sanitized = sanitized.replace(/\(/g, '');
+  sanitized = sanitized.replace(/\)/g, '');
+  
+  // 删除Z-Library字符串（各种可能的格式）
+  sanitized = sanitized.replace(/Z-Library/gi, '');
+  
+  // 删除Unknown字符串
+  sanitized = sanitized.replace(/Unknown/gi, '');
+  
+  // 删除"作者："前缀
+  sanitized = sanitized.replace(/作者：/g, '');
+  
+  // 处理连续的破折号
+  sanitized = sanitized.replace(/\-+/g, '-');
+  
+  // 移除开头和结尾的破折号
+  sanitized = sanitized.replace(/^\-|\-$/g, '');
+  
   // 去除所有空格
   sanitized = sanitized.replace(/\s+/g, '');
+  
+  // 移除文件扩展名前的破折号
+  sanitized = sanitized.replace(/\-(\.[^.]+)$/, '$1');
   
   // 如果文件名为空，返回默认名称
   if (!sanitized || sanitized.trim() === '') {
