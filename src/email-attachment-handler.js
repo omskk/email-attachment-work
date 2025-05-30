@@ -35,9 +35,9 @@ function sanitizeFilename(filename) {
   // 移除《》、（）、()等括号，并用-替换
   sanitized = sanitized.replace(/《/g, '');
   sanitized = sanitized.replace(/》/g, '');
-  sanitized = sanitized.replace(/（/g, '');
-  sanitized = sanitized.replace(/）/g, '-');
-  sanitized = sanitized.replace(/\(/g, '');
+  sanitized = sanitized.replace(/（/g, '-');
+  sanitized = sanitized.replace(/）/g, '');
+  sanitized = sanitized.replace(/\(/g, '-');
   sanitized = sanitized.replace(/\)/g, '');
   
   // 删除Z-Library字符串（各种可能的格式）
