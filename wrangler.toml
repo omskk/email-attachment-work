@@ -2,6 +2,11 @@ name = "email-attachment-handler"
 main = "src/index.js"
 compatibility_date = "2025-07-16"
 
+# wrangler.toml (wrangler v3.88.0^)
+[observability.logs]
+enabled = true
+
+
 [vars]
 WEBDAV_USER = ""      # 请设置您的WebDAV用户名
 WEBDAV_PASSWORD = ""  # 请设置您的WebDAV密码
