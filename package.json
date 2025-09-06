@@ -30,6 +30,7 @@
     ]
   },
   "dependencies": {
+    "hono": "^4.4.6",
     "postal-mime": "^1.0.15"
   }
 }

@@ -11,6 +11,31 @@
 - 可选：记录统计信息到Analytics Engine
 
 注意：该模块针对Z-Library邮件进行了优化，但也可以处理其他邮件。若名称有问题，请自行修改。
+
+## WebDAV 功能
+
+本项目集成了 WebDAV 服务器功能，允许您通过 WebDAV 客户端直接访问和管理存储在 R2 中的附件。
+
+### 配置 WebDAV
+
+1.  打开 `wrangler.toml` 文件。
+2.  在 `[vars]` 部分，设置您的 WebDAV 用户名和密码：
+    ```toml
+    [vars]
+    WEBDAV_USER = "your_username"      # 请设置您的WebDAV用户名
+    WEBDAV_PASSWORD = "your_password"  # 请设置您的WebDAV密码
+    ```
+3.  部署后，您的 WebDAV 访问地址即为 Worker 的 URL (例如 `https://your-worker-name.your-subdomain.workers.dev`)。
+
+### 连接 WebDAV
+
+您可以使用任何支持 WebDAV 协议的客户端进行连接，例如：
+- Windows 资源管理器
+- macOS Finder
+- RaiDrive, Cyberduck 等第三方工具
+
+连接时，请使用您在 `wrangler.toml` 中设置的用户名和密码。
+
 ## 使用方法
 fork 本项目
 
@@ -69,4 +94,4 @@ npm run start
 
 ```bash
 npx wrangler dev
-``` 
+```

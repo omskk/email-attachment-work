@@ -1,7 +1,10 @@
 name = "email-attachment-handler"
-main = "src/email-attachment-handler.js"
+main = "src/index.js"
 compatibility_date = "2023-03-16"
 
+[vars]
+WEBDAV_USER = ""      # 请设置您的WebDAV用户名
+WEBDAV_PASSWORD = ""  # 请设置您的WebDAV密码
 
 [[r2_buckets]]
 binding = "R2_BUCKET"
@@ -16,6 +19,3 @@ preview_bucket_name = "" # 请替换为您实际创建的R2存储桶名称
 # wrangler.toml (wrangler v3.88.0^)
 [observability.logs]
 enabled = true
-
-
-

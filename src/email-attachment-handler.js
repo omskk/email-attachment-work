@@ -12,61 +12,62 @@ export default {
     console.log('开始处理邮件...')
     await handleEmail(message, env, ctx)
     console.log('邮件处理完成')
-  },
+  }
 }
 
 /**
- * 清理文件名，移除不安全字符
- * @param filename 原始文件名
- * @return {string} 清理后的文件名
+ * 清理文件名，移除不安全字符。
+ * 重构后的版本，提高了代码质量和可维护性。
+ * @param {string} filename 原始文件名
+ * @returns {string} 清理后的文件名
  */
 function sanitizeFilename(filename) {
-  console.log(`清理文件名: "${filename}"`)
-  // 移除所有空字符 (%00)
-  let sanitized = filename.replace(/\u0000/g, '');
-  // // 移除URL编码的空字符
-  // sanitized = sanitized.replace(/%00/g, '');
-  // 移除控制字符
-  sanitized = sanitized.replace(/[\x00-\x1F\x7F]/g, '');
-  // 替换问题字符
-  sanitized = sanitized.replace(/[<>:"\/\\|?*]/g, '_');
-  
-  // 格式化电子书文件名
-  // 移除《》、（）、()等括号，并用-替换
-  sanitized = sanitized.replace(/《/g, '');
-  sanitized = sanitized.replace(/》/g, '');
-  sanitized = sanitized.replace(/（/g, '-');
-  sanitized = sanitized.replace(/）/g, '');
-  sanitized = sanitized.replace(/\(/g, '-');
-  sanitized = sanitized.replace(/\)/g, '');
-  
-  // 删除Z-Library字符串（各种可能的格式）
-  sanitized = sanitized.replace(/Z-Library/gi, '');
-  
-  // 删除Unknown字符串
-  sanitized = sanitized.replace(/Unknown/gi, '');
-  
-  // 删除"作者："前缀
-  sanitized = sanitized.replace(/作者：/g, '');
-  
-  // 处理连续的破折号
-  sanitized = sanitized.replace(/\-+/g, '-');
-  
-  // 移除开头和结尾的破折号
-  sanitized = sanitized.replace(/^\-|\-$/g, '');
-  
-  // 去除所有空格
-  sanitized = sanitized.replace(/\s+/g, '');
-  
-  // 移除文件扩展名前的破折号
-  sanitized = sanitized.replace(/\-(\.[^.]+)$/, '$1');
-  
-  // 如果文件名为空，返回默认名称
-  if (!sanitized || sanitized.trim() === '') {
-    console.log('文件名为空，使用默认名称: unnamed_file')
+  console.log(`开始清理文件名: "${filename}"`);
+
+  if (!filename) {
     return 'unnamed_file';
   }
-  console.log(`清理后的文件名: "${sanitized}"`)
+
+  // 步骤 1: 分离文件名和扩展名
+  const extensionMatch = filename.match(/\.[^./\\]+$/);
+  const extension = extensionMatch ? extensionMatch[0] : '';
+  let name = extension ? filename.slice(0, -extension.length) : filename;
+
+  // 步骤 2: 定义并应用一系列清理规则
+  const rules = [
+    // 移除控制字符和空字节
+    { from: /[\x00-\x1F\x7F\u0000]/g, to: '' },
+    // 替换文件系统中非法的字符为下划线
+    { from: /[<>:"/\\|?*]/g, to: '_' },
+    // 移除特定的营销或元数据字符串
+    { from: /Z-Library|Unknown|作者：/gi, to: '' },
+    // 移除装饰性括号
+    { from: /[《》【】]/g, to: '' },
+    // 将各种括号统一替换为连字符
+    { from: /[（()]/g, to: '-' },
+    // 移除右括号
+    { from: /[）]/g, to: '' },
+    // 移除所有空白字符
+    { from: /\s+/g, to: '' },
+  ];
+
+  name = rules.reduce((acc, rule) => acc.replace(rule.from, rule.to), name);
+
+  // 步骤 3: 后期处理，清理连字符
+  name = name
+    // 将多个连续的连字符替换为单个
+    .replace(/-+/g, '-')
+    // 移除文件名开头和结尾的连字符
+    .replace(/^-+|-+$/g, '');
+
+  // 步骤 4: 重新组装并验证
+  // 如果清理后文件名为空，则使用默认名称
+  if (!name) {
+    name = 'unnamed_file';
+  }
+
+  const sanitized = name + extension;
+  console.log(`清理后的文件名: "${sanitized}"`);
   return sanitized;
 }
 
@@ -137,4 +138,4 @@ async function handleEmail(message, env, ctx) {
     console.error('错误详情:', error.stack || '无堆栈信息')
     throw error
   }
-} 
+}
