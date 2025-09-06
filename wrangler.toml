@@ -1,4 +1,4 @@
-name = "email-attachment-handler"
+name = "ebook"
 main = "src/index.js"
 compatibility_date = "2025-07-16"
 
