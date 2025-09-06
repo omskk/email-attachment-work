@@ -4,12 +4,12 @@
   "devDependencies": {
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.7.0",
-    "wrangler": "^3.88.0"
+    "wrangler": "^4.0.0"
   },
   "private": true,
   "scripts": {
     "start": "wrangler dev",
-    "deploy": "wrangler publish",
+    "deploy": "wrangler deploy",
     "test": "npx prettier --list-different 'src/**/*.js' && npx eslint .",
     "pretty": "npx prettier --list-different 'src/**/*.js'",
     "lint": "npx eslint ."
